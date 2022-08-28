@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " xx",
+    " sx",
+    " s "
+  ],
+  "key":
+  {
+    "x":
+    {
+      "item": "modone:copper_ingot"
+    },
+    "s":
+    {
+      "item": "minecraft:stick"
+    }
+  },
+  "result":
+  {
+    "item": "modone:copper_axe"
+  }
+}

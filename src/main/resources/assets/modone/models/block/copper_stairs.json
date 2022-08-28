@@ -1,0 +1,8 @@
+{
+  "parent": "block/stairs",
+  "textures": {
+    "bottom": "modone:block/copper_block",
+    "top": "modone:block/copper_block",
+    "side": "modone:block/copper_block"
+  }
+}

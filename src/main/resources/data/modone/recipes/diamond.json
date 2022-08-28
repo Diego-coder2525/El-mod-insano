@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "sss",
+    "sxs",
+    "sss"
+  ],
+  "key":
+  {
+    "x":
+    {
+      "item": "modone:copper_block"
+    },
+    "s":
+    {
+      "item": "modone:copper_wire"
+    }
+  },
+  "result":
+  {
+    "item": "minecraft:diamond"
+  }
+}

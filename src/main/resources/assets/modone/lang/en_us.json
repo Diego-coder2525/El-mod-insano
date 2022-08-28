@@ -1,0 +1,22 @@
+{
+  "item.modone.copper_ingot": "Copper Ingot",
+  "item.modone.copper_wire" : "Copper Wire" ,
+  "block.modone.copper_block": "Copper Block",
+  "block.modone.copper_ore": "Copper Ore",
+  "item.modone.coppered_apple": "Coppered Apple" ,
+  "itemGroup.courseTab": "Copper Tab",
+  "item.modone.copper_shovel": "Copper Shovel",
+  "item.modone.copper_pickaxe": "Copper Pickaxe",
+  "item.modone.copper_axe": "Copper Axe",
+  "item.modone.copper_sword": "Prototipo de espada insana wasaa",
+  "item.modone.copper_hoe": "Copper Hoe",
+  "item.modone.copper_helmet": "Copper Helmet",
+  "item.modone.copper_chestplate": "Copper Chestplate",
+  "item.modone.copper_leggings": "Copper Leggings",
+  "item.modone.copper_boots": "Copper Boots",
+  "block.modone.copper_stairs": "Copper stairs",
+  "block.modone.copper_fence": "Copper fence",
+  "block.modone.copper_fence_gate": "Copper fence gate",
+  "block.modone.copper_button": "Copper button",
+  "block.modone.copper_door": "Copper door"
+}

@@ -1,0 +1,6 @@
+{
+  "variants": {
+    "powered=false": { "model": "modone:block/copper_pressure_plate" },
+    "powered=true": { "model": "modone:block/copper_pressure_plate_down" }
+  }
+}
