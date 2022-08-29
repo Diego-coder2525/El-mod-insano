@@ -2,6 +2,7 @@ package com.diego.modone.util;
 
 import com.diego.modone.modone;
 import net.minecraft.block.Block;
+import net.minecraft.fluid.Fluid;
 import net.minecraft.item.Item;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -13,9 +14,14 @@ public class Registration {
             DeferredRegister.create(ForgeRegistries.BLOCKS, modone.MOD_ID);
     public static final DeferredRegister<Item> ITEMS =
             DeferredRegister.create(ForgeRegistries.ITEMS, modone.MOD_ID);
-    public static void register(){
+
+    public static final DeferredRegister<Fluid> FLUIDS =
+            DeferredRegister.create(ForgeRegistries.FLUIDS, modone.MOD_ID);
+
+    public static void init(){
         IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
         BLOCKS.register(eventBus);
         ITEMS.register(eventBus);
+        FLUIDS.register(eventBus);
     }
 }

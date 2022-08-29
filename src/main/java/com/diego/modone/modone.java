@@ -1,17 +1,24 @@
 package com.diego.modone;
 
 import com.diego.modone.block.ModBlocks;
+import com.diego.modone.block.ModFluids;
 import com.diego.modone.events.ModEvents;
 import com.diego.modone.item.ModItems;
+import com.diego.modone.setup.ClientProxy;
+import com.diego.modone.setup.IProxy;
+import com.diego.modone.setup.ServerProxy;
 import com.diego.modone.util.Config;
 import com.diego.modone.util.Registration;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.InterModComms;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
@@ -40,58 +47,58 @@ public class modone
             return new ItemStack(ModItems.COPPER_WIRE.get());
         }
     };
+    public static IProxy proxy;
     // Directly reference a log4j logger.
     private static final Logger LOGGER = LogManager.getLogger();
 
     public modone() {
-        ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, Config.CLIENT_CONFIG);
-        ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, Config.SERVER_CONFIG);
+    proxy = DistExecutor.unsafeRunForDist(() -> ClientProxy::new, () -> ServerProxy::new);
 
-        Registration.register();
-        ModItems.register();
-        ModBlocks.register();
 
-        MinecraftForge.EVENT_BUS.register(new ModEvents());
         // Register the setup method for modloading
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
-        // Register the enqueueIMC method for modloading
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::enqueueIMC);
-        // Register the processIMC method for modloading
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::processIMC);
-        // Register the doClientStuff method for modloading
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::doClientStuff);
 
-
-        Config.loadConfigFile(Config.CLIENT_CONFIG, FMLPaths.CONFIGDIR.get().resolve("modone-client.toml").toString());
-        Config.loadConfigFile(Config.SERVER_CONFIG, FMLPaths.CONFIGDIR.get().resolve("modone-server.toml").toString());
+        registerModAdditions();
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
     }
 
     private void setup(final FMLCommonSetupEvent event)
     {
-        // some preinit code
-        LOGGER.info("HELLO FROM PREINIT");
-        LOGGER.info("DIRT BLOCK >> {}", Blocks.DIRT.getRegistryName());
-    }
+    registerConfigs();
+    proxy.init();
 
+    loadConfigs();
+
+
+    }
+    private void registerConfigs()
+    {
+        Config.loadConfigFile(Config.CLIENT_CONFIG, FMLPaths.CONFIGDIR.get().resolve("modone-client.toml").toString());
+        Config.loadConfigFile(Config.SERVER_CONFIG, FMLPaths.CONFIGDIR.get().resolve("modone-server.toml").toString());
+    }
+    private void loadConfigs()
+    {
+        ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, Config.CLIENT_CONFIG);
+        ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, Config.SERVER_CONFIG);
+    }
+    private void registerModAdditions()
+    {   //inits the registration of our additions
+        Registration.init();
+        //registers items, blocks ,etc
+        ModItems.register();
+        ModBlocks.register();
+        ModFluids.register();
+
+        MinecraftForge.EVENT_BUS.register(new ModEvents());
+
+    }
     private void doClientStuff(final FMLClientSetupEvent event) {
         // do something that can only be done on the client
+
     }
 
-    private void enqueueIMC(final InterModEnqueueEvent event)
-    {
-        // some example code to dispatch IMC to another mod
-        InterModComms.sendTo("examplemod", "helloworld", () -> { LOGGER.info("Hello world from the MDK"); return "Hello world";});
-    }
-
-    private void processIMC(final InterModProcessEvent event)
-    {
-        // some example code to receive and process InterModComms from other mods
-        LOGGER.info("Got IMC {}", event.getIMCStream().
-                map(m->m.getMessageSupplier().get()).
-                collect(Collectors.toList()));
-    }
     // You can use SubscribeEvent and let the Event Bus discover methods to call
     @SubscribeEvent
     public void onServerStarting(FMLServerStartingEvent event) {

@@ -1,5 +1,7 @@
 package com.diego.modone.item;
 
+import com.diego.modone.block.ModBlocks;
+import com.diego.modone.block.ModFluids;
 import com.diego.modone.modone;
 import com.diego.modone.util.Registration;
 import net.minecraft.block.SoundType;
@@ -71,7 +73,13 @@ public class ModItems {
             Registration.ITEMS.register("copper_boots",
                     () -> new ArmorItem(ModArmorMaterial.COPPER, EquipmentSlotType.FEET,
                             new Item.Properties().group(modone.COURSE_TAB)));
-
+    public static final RegistryObject<Item> OIL_BUCKET =
+            Registration.ITEMS.register("oil_bucket",
+                    () -> new BucketItem(ModFluids.OIL_FLUID::get,
+                            new Item.Properties().group(modone.COURSE_TAB).maxStackSize(1)));
+    public static final RegistryObject<Item> ZUCCINI_SEED =
+            Registration.ITEMS.register("zuccini_seed",
+    ()->new BlockItem(ModBlocks.ZUCCINI_CROP.get(),new Item.Properties().group(modone.COURSE_TAB)));
     public static void register(){}
 
 

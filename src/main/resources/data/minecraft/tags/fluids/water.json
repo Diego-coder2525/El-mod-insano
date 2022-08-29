@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "values": [
+    "modone:oil_flowing",
+    "modone:oil_fluid"
+  ]
+}

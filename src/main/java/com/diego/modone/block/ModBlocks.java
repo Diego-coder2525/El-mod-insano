@@ -35,7 +35,9 @@ public class ModBlocks {
             () -> new FenceGateBlock(AbstractBlock.Properties.create(Material.IRON)));
     public static final RegistryObject<Block> COPPER_BUTTON = register("copper_button",
             () -> new StoneButtonBlock(AbstractBlock.Properties.create(Material.IRON)));
-
+    public static final RegistryObject<Block> ZUCCINI_CROP =
+            Registration.BLOCKS.register("zuccini_crop",
+                    () -> new ZucciniCrop(AbstractBlock.Properties.from(Blocks.WHEAT)));
 
 
     //En desarrollo
